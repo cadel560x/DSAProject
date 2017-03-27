@@ -22,7 +22,7 @@ public class Porta {
 	}
 
 	public void setKey(String key) {
-//		Watch out for those pranksters!
+//		Watch out for those pranksters that change the key to a invalid value
 		if (key == null || key.equals("")) {
 			System.out.println("The key can't be 'null' or empty!\nUsing 'PORTA' as key");
 			this.key = "PORTA";
@@ -32,18 +32,22 @@ public class Porta {
 
 
 //	Other methods
-	public String enconde(String plainWord) {
+	public String encode(String word) {
 		StringBuilder sb = new StringBuilder();
-		char encryptedChar;
+		char codedChar;
 		
-		for (int i = 0; i < plainWord.length(); i++) {
-			encryptedChar = get_ct_char(key.charAt(i),  plainWord.toUpperCase().charAt(i));
-			sb.append(encryptedChar);
+		for (int i = 0; i < word.length(); i++) {
+			codedChar = get_ct_char(key.charAt(i),  word.toUpperCase().charAt(i));
+			sb.append(codedChar);
 		}
 		
 		return sb.toString();
-	}
+	} // enconde
 
+	
+	public String decode(String cypherText) {
+		return encode(cypherText);
+	} // decode
 	
 	private char get_ct_char(char kc,char pc)
 	{
@@ -58,6 +62,6 @@ public class Porta {
 		{			
 			return (char)((pc_pos+kc_pos)%13+'N');
 		}
-}
+	} // get_ct_char
 	
 }
