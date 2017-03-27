@@ -7,40 +7,46 @@ public class Runner {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//new Menu().start();
-		Map<Character, Character> map1 = new HashMap<>();
-//		Map<MapKey, Map<Character , Character >> m = new HashMap<>();
-		Map< Character, Map<Character , Character> > tableau = new HashMap<>();
-		
-		map1.put('a','n');
-		map1.put('b','o');
-		map1.put('c','p');
-		map1.put('d','q');
-		map1.put('e','r');
-		map1.put('f','s');
-		map1.put('g','t');
-		map1.put('h','u');
-		map1.put('i','v');
-		map1.put('j','w');
-		map1.put('k','x');
-		map1.put('l','y');
-		map1.put('m','z');
-		map1.put('n','a');
-		map1.put('o','b');
-		map1.put('p','c');
-		map1.put('q','d');
-		map1.put('r','e');
-		map1.put('s','f');
-		map1.put('t','g');
-		map1.put('u','h');
-		map1.put('v','i');
-		map1.put('w','j');
-		map1.put('x','k');
-		map1.put('y','l');
-		map1.put('z','m');
 		
 		
-		Character a = new Character('a');
-		Character b = new Character('b');
+		String plainWord = "HOLA";
+		Porta cipher = new Porta();
+		
+		System.out.println(cipher.enconde(plainWord));
+//		Map<Character, Character> map1 = new HashMap<>();
+////		Map<MapKey, Map<Character , Character >> m = new HashMap<>();
+//		Map< Character, Map<Character , Character> > tableau = new HashMap<>();
+//		
+//		map1.put('a','n');
+//		map1.put('b','o');
+//		map1.put('c','p');
+//		map1.put('d','q');
+//		map1.put('e','r');
+//		map1.put('f','s');
+//		map1.put('g','t');
+//		map1.put('h','u');
+//		map1.put('i','v');
+//		map1.put('j','w');
+//		map1.put('k','x');
+//		map1.put('l','y');
+//		map1.put('m','z');
+//		map1.put('n','a');
+//		map1.put('o','b');
+//		map1.put('p','c');
+//		map1.put('q','d');
+//		map1.put('r','e');
+//		map1.put('s','f');
+//		map1.put('t','g');
+//		map1.put('u','h');
+//		map1.put('v','i');
+//		map1.put('w','j');
+//		map1.put('x','k');
+//		map1.put('y','l');
+//		map1.put('z','m');
+//		
+//		
+//		Character a = new Character('a');
+//		Character b = new Character('b');
 //		Character c = new Character('c');
 //		Character d = new Character('d');
 //		Character e = new Character('e');
@@ -98,8 +104,8 @@ public class Runner {
 //		System.out.println(z.hashCode());
 		
 		
-		tableau.put(a, map1);
-		tableau.put(b, map1);
+//		tableau.put(a, map1);
+//		tableau.put(b, map1);
 //		tableau.put(c, map2);
 //		tableau.put(d, map2);
 //		tableau.put(e, map3);
@@ -128,49 +134,35 @@ public class Runner {
 //		Character name = new Character('Z');
 //		System.out.println(name.hashCode());
 		
-		StringBuilder sb = new StringBuilder();
-		
-		
-		String plain = "HolaMundo";
-		String key ="abab";
-		Character plainChar;
-		Character keyChar;
-		Character enChar;
-		
-		String plain_lowerCase = plain.toLowerCase();
-		for(int index = 0; index < plain.length(); index++) {
-			
-			plainChar = new Character(plain_lowerCase.charAt(index));
-			keyChar = new Character(key.charAt(index));
-//			System.out.println(keyChar);
-			
-			enChar = tableau.get(keyChar).get(plain_lowerCase.charAt(index));
-			
-			System.out.println("keyChar: " + keyChar + "\tplainChar: " + plainChar + "\tenChar: " + enChar);
-			
-
-			sb.append(enChar.charValue());
-		}
+//		StringBuilder sb = new StringBuilder();
+//		
+//		
+//		String plain = "HolaMundo";
+//		String key ="abab";
+//		Character plainChar;
+//		Character keyChar;
+//		Character enChar;
+//		
+//		String plain_lowerCase = plain.toLowerCase();
+//		for(int index = 0; index < plain.length(); index++) {
+//			
+//			plainChar = new Character(plain_lowerCase.charAt(index));
+//			keyChar = new Character(key.charAt(index));
+////			System.out.println(keyChar);
+//			
+//			enChar = tableau.get(keyChar).get(plain_lowerCase.charAt(index));
+//			
+//			System.out.println("keyChar: " + keyChar + "\tplainChar: " + plainChar + "\tenChar: " + enChar);
+//			
+//
+//			sb.append(enChar.charValue());
+//		}
 		
 		
 		
 //		System.out.println(tableau.get(a).get('a'));
 //		System.out.println(tableau.get(b).get('a'));
-	}
+	} // main
 	
-	private static char get_ct_char(char kc,char pc)
-	{
-		int kc_pos=(kc-'A')/2;
-		int pc_pos=pc-'A';
-		if(pc-'M'>0)
-		{
-			
-			return (char)('A'+(pc_pos-kc_pos)%13);
-		}
-		else
-		{			
-			return (char)((pc_pos+kc_pos)%13+'N');
-		}
-}	
 
-}
+} // Runner
