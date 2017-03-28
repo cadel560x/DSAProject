@@ -6,18 +6,18 @@ public class Runner {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//new Menu().start();
-		
-		
-		String plainWord = "HOLA";
-		Porta cipher = new Porta();
-		String cypherWord = cipher.encode(plainWord);
-		
-//		Print out encrypted text
-		System.out.println(cypherWord);
-//		Print out decrypted text
-		System.out.println(cipher.decode(cypherWord));
-		
+		new Menu().start();
+//		
+//		
+//		String plainWord = "HOLA";
+//		Porta cipher = new Porta();
+//		String cypherWord = cipher.encode(plainWord);
+//		
+////		Print out encrypted text
+//		System.out.println(cypherWord);
+////		Print out decrypted text
+//		System.out.println(cipher.decode(cypherWord));
+//		
 //		Map<Character, Character> map1 = new HashMap<>();
 ////		Map<MapKey, Map<Character , Character >> m = new HashMap<>();
 //		Map< Character, Map<Character , Character> > tableau = new HashMap<>();

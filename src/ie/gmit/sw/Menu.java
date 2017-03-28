@@ -11,6 +11,7 @@ public class Menu {
 	
 	
 	
+	
 //	Constructors
 	public Menu() {
 		console = new Scanner(System.in);
@@ -38,21 +39,25 @@ public class Menu {
 			switch(option) {
 				case "1":
 					selectSource();
+//					'selectSource' displays a submenu which sets 'option' as '-1' to finish,
+//					but here, in the parent menu we don't want to exit yet. So 'option' is reset
+					option = "";
 					break;
 				case "2":
 					printTitle("Key setup");
 					System.out.print("Enter key: ");
-					portaCipher.setKey(console.nextLine());
+					portaCipher.setKey(console.nextLine().toUpperCase());
+					System.out.println(); // Just some nice formatting
 					break;
 				case "3":
-					printTitle("Encryption");
-					encrypt(parser);
+					printTitle("Encrypt");
+					encrypt();
 					break;
 				case "4":
-					printTitle("Decryption");
+					printTitle("Decrypt");
 					break;
 				case "-1":
-					break;
+					break; // Just exit
 				default:
 					System.out.println("Invalid option. Please try again.\n");
 			}
@@ -63,8 +68,9 @@ public class Menu {
 		console.close();
 	} // start()
 	
+	
 	private void selectSource() {
-		//String source;
+//		String source;
 		
 		do {
 			printTitle("Source feed");
@@ -79,36 +85,70 @@ public class Menu {
 			
 			switch(option) {
 			case "1":
-				System.out.println("Please type the pathname: ");
-				//source = console.nextLine();
+				System.out.print("Please type the pathname: ");
+//				source = console.nextLine();
 				parser = new Parser(console.nextLine());
-//				parser.parse(source);
+//				parser = new Parser(source);
+				System.out.println("File '" + parser.getFile().getName() + "' parsed and loaded into memory\n");
+//				Nothing else to do here. Go to parent menu.
+				option = "-1";
 				break;
 			case "2":
 				System.out.println("Please type the URL: ");
 				//source = console.nextLine();
-				parser = new Parser(console.nextLine());
-//				parser.parse(source);			
+				parser = new Parser(console.nextLine());	
+//				Nothing else to do here. Go to parent menu.				
+				option = "-1";
 				break;
 			case "-1":
-				break;
+				break; // Just exit
 			default:
 				System.out.println("Invalid option. Please try again.\n");
 			}
 		} while (! option.equals("-1"));
 		
 //		Empty the "-1" so it doesn't make us exit from the top menu too.
-		console.next();
+//		option = "";
 		
 	} // selectSource()
 	
-	private void encrypt(Parser parser) {
-		// TODO Auto-generated method stub
+	
+	private void encrypt() {
+		// TODO Auto-generated method stu
+		List<String> cypherText = new ArrayList<>();
+		long startTime;
+		
+		System.out.println("Encrypting '" + parser.getFile().getName() + "'");
+		
+		startTime = System.currentTimeMillis();
 		for (String temp: parser.getFileContents()) {
-			portaCipher.encode(temp);
+			cypherText.add(portaCipher.encode(temp));
+//			System.out.println(portaCipher.encode(temp));
+		}
+		
+		System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));
+		
+		printTitle("Output Cyphertext");
+		System.out.println("1. To screen");
+		System.out.println("2. To file");
+		option = console.nextLine();
+		
+		if (option.equals("1")) {
+			int letterCounter = 0;
+			
+			for(String temp: cypherText) {
+				letterCounter += temp.length() + 1; // '+ 1' because we are adding a space character
+				System.out.print(temp + " ");
+				if ( letterCounter > 80 ) { // New line after 80 characters
+					letterCounter = 0;
+					System.out.println();
+				}	
+			}
+			System.out.println("\n");
 		}
 		
 	} // encrypt()
+	
 	
 	private void printTitle(String title) {
 		StringBuilder sb = new StringBuilder();

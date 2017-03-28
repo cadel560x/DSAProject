@@ -35,11 +35,11 @@ public class Parser {
 //	Getters & setters
 	public File getFile() {
 		return file;
-	}
+	} // to delete
 
 	public void setFile(File file) {
 		this.file = file;
-	}
+	} // to delete
 	
 	public List<String> getFileContents() {
 		return fileContents;
@@ -50,22 +50,17 @@ public class Parser {
 	
 //	Other methods
 	public void parse(File file) {
-//		BufferedReader br;// = null;
-//		String [] str;// = null;
-//		String s;// = null; 
 		try {
 			 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			 String line; 
 			 String [] stringArray;
 			 
-			 
-			 do
+			 while( (line = br.readLine() ) != null )
 			 {
-				 line = br.readLine();
 				 stringArray = line.split("\\W+");
 //				 Add to a list that maintains all the words in the file
 				 fileContents.addAll(Arrays.asList(stringArray));
-			 } while( line != null );
+			 }
 			 
 			 br.close();
 		}
@@ -74,15 +69,17 @@ public class Parser {
 		}
 	} // parse(File file)
 
+	
 	public void parse(String pathname) {
 		this.file = new File(pathname);
 		this.parse(file);
 		
 	} // parse(String pathname)	
 	
+	
 	public void parse() {
 		this.parse(this.file);
 		
-	} // parse()
+	} // parse() // to delete
 
 }

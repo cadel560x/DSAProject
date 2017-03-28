@@ -13,7 +13,7 @@ public class Porta {
 	}
 
 	public Porta(String key) {
-		this.key = key.toUpperCase(); // check out if 'toUpperCase' uses loops, there is a chance to use a map...
+		this.key = key; // check out if 'toUpperCase' uses loops, there is a chance to use a map...
 	}
 
 	
@@ -22,7 +22,7 @@ public class Porta {
 //	Getters & setters
 	public String getKey() {
 		return key;
-	}
+	} // to delete, not a good idea to get the key ;-)
 
 	public void setKey(String key) {
 //		Watch out for those pranksters that change the key to a invalid value
@@ -52,12 +52,15 @@ public class Porta {
 		}
 	} // processChar	
 	
+	
 	public String encode(String word) {
 		StringBuilder sb = new StringBuilder();
 		char codedChar;
+		int keyLength = key.length();
 		
 		for (int i = 0; i < word.length(); i++) {
-			codedChar = processChar(key.charAt(i),  word.toUpperCase().charAt(i));
+//			'i % keyLength' avoids 'IndexOutOfBoundsException', no matter the length of the word to process
+			codedChar = processChar(key.charAt(i % keyLength),  word.toUpperCase().charAt(i));
 			sb.append(codedChar);
 		}
 		
