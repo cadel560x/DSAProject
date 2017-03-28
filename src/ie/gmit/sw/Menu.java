@@ -3,15 +3,24 @@ package ie.gmit.sw;
 import java.util.*;
 
 public class Menu {
-	
-	private Scanner console = new Scanner(System.in);
+//	Member attributes/fields	
+	private Scanner console;// = new Scanner(System.in);
+	private Porta portaCipher;// = new Porta();
 	private Parser parser;
 	private String option;
 	
+	
+	
+//	Constructors
 	public Menu() {
-		
+		console = new Scanner(System.in);
+		portaCipher = new Porta();
 	}
-
+	
+	
+	
+	
+//	Other methods
 	public void start() {
 		
 		do {
@@ -31,10 +40,16 @@ public class Menu {
 					selectSource();
 					break;
 				case "2":
+					printTitle("Key setup");
+					System.out.print("Enter key: ");
+					portaCipher.setKey(console.nextLine());
 					break;
 				case "3":
+					printTitle("Encryption");
+					encrypt(parser);
 					break;
 				case "4":
+					printTitle("Decryption");
 					break;
 				case "-1":
 					break;
@@ -46,19 +61,10 @@ public class Menu {
 		System.out.println("Thank you for using my Porta cypher. Have a nice day.\nJavier Mantilla G00329649");
 		
 		console.close();
-	} // start
-	
-	public void printTitle(String title) {
-		System.out.println(title);
-		
-		for (int i = 0; i < title.length(); ++i)
-			System.out.print("-");
-		
-		System.out.println();
-	} // printTitle
+	} // start()
 	
 	private void selectSource() {
-		String source;
+		//String source;
 		
 		do {
 			printTitle("Source feed");
@@ -74,15 +80,15 @@ public class Menu {
 			switch(option) {
 			case "1":
 				System.out.println("Please type the pathname: ");
-				source = console.nextLine();
-				parser = new Parser();
-				parser.parse(source);
+				//source = console.nextLine();
+				parser = new Parser(console.nextLine());
+//				parser.parse(source);
 				break;
 			case "2":
 				System.out.println("Please type the URL: ");
-				source = console.nextLine();
-				parser = new Parser();
-				parser.parse(source);			
+				//source = console.nextLine();
+				parser = new Parser(console.nextLine());
+//				parser.parse(source);			
 				break;
 			case "-1":
 				break;
@@ -94,5 +100,25 @@ public class Menu {
 //		Empty the "-1" so it doesn't make us exit from the top menu too.
 		console.next();
 		
-	} // selectSource
-}
+	} // selectSource()
+	
+	private void encrypt(Parser parser) {
+		// TODO Auto-generated method stub
+		for (String temp: parser.getFileContents()) {
+			portaCipher.encode(temp);
+		}
+		
+	} // encrypt()
+	
+	private void printTitle(String title) {
+		StringBuilder sb = new StringBuilder();
+		
+		System.out.println(title);
+		
+		for (int i = 0; i < title.length(); ++i)
+			sb.append('-');
+		
+		System.out.println(sb.toString());
+	} // printTitle()
+	
+} // Menu

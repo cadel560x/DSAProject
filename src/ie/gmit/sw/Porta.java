@@ -4,17 +4,20 @@ public class Porta {
 //	Member attributes/fields
 	private String key;
 	
+	
+	
 
 //	Constructors
 	public Porta() {
 		key = "PORTA";
 	}
 
-
 	public Porta(String key) {
-		this.key = key.toUpperCase();
+		this.key = key.toUpperCase(); // check out if 'toUpperCase' uses loops, there is a chance to use a map...
 	}
 
+	
+	
 
 //	Getters & setters
 	public String getKey() {
@@ -31,37 +34,41 @@ public class Porta {
 	}
 
 
+	
+	
 //	Other methods
+	private char processChar(char keyCharacter,char plainCharacter) // Comment this method
+	{
+		int keyCharacterPosition=(keyCharacter-'A')/2;
+		int plainCharacterPosition=plainCharacter-'A';
+		if (plainCharacter - 'M' > 0)
+		{
+			
+			return (char)('A' + (plainCharacterPosition - keyCharacterPosition)%13);
+		}
+		else
+		{			
+			return (char)((plainCharacterPosition + keyCharacterPosition)%13 + 'N');
+		}
+	} // processChar	
+	
 	public String encode(String word) {
 		StringBuilder sb = new StringBuilder();
 		char codedChar;
 		
 		for (int i = 0; i < word.length(); i++) {
-			codedChar = get_ct_char(key.charAt(i),  word.toUpperCase().charAt(i));
+			codedChar = processChar(key.charAt(i),  word.toUpperCase().charAt(i));
 			sb.append(codedChar);
 		}
 		
 		return sb.toString();
+		
 	} // enconde
 
 	
 	public String decode(String cypherText) {
 		return encode(cypherText);
+		
 	} // decode
-	
-	private char get_ct_char(char kc,char pc)
-	{
-		int kc_pos=(kc-'A')/2;
-		int pc_pos=pc-'A';
-		if(pc-'M'>0)
-		{
-			
-			return (char)('A'+(pc_pos-kc_pos)%13);
-		}
-		else
-		{			
-			return (char)((pc_pos+kc_pos)%13+'N');
-		}
-	} // get_ct_char
 	
 }
