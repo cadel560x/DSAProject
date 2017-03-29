@@ -1,5 +1,8 @@
 package ie.gmit.sw;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Menu {
@@ -61,7 +64,7 @@ public class Menu {
 				default:
 					System.out.println("Invalid option. Please try again.\n");
 			}
-		} while(! option.equals("-1"));
+		} while( !option.equals("-1"));
 		
 		System.out.println("Thank you for using my Porta cypher. Have a nice day.\nJavier Mantilla G00329649");
 		
@@ -105,7 +108,7 @@ public class Menu {
 			default:
 				System.out.println("Invalid option. Please try again.\n");
 			}
-		} while (! option.equals("-1"));
+		} while ( !option.equals("-1"));
 		
 //		Empty the "-1" so it doesn't make us exit from the top menu too.
 //		option = "";
@@ -118,34 +121,93 @@ public class Menu {
 		List<String> cypherText = new ArrayList<>();
 		long startTime;
 		
-		System.out.println("Encrypting '" + parser.getFile().getName() + "'");
-		
-		startTime = System.currentTimeMillis();
-		for (String temp: parser.getFileContents()) {
-			cypherText.add(portaCipher.encode(temp));
-//			System.out.println(portaCipher.encode(temp));
-		}
-		
-		System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));
-		
-		printTitle("Output Cyphertext");
-		System.out.println("1. To screen");
-		System.out.println("2. To file");
-		option = console.nextLine();
-		
-		if (option.equals("1")) {
-			int letterCounter = 0;
+		do {
+			printTitle("Encryption");
+			System.out.println("1. From keyboard");
+			System.out.println("2. From a parser loaded in memory");
+			System.out.print("Press -1 to go back: ");
 			
-			for(String temp: cypherText) {
-				letterCounter += temp.length() + 1; // '+ 1' because we are adding a space character
-				System.out.print(temp + " ");
-				if ( letterCounter > 80 ) { // New line after 80 characters
-					letterCounter = 0;
-					System.out.println();
-				}	
+			option = console.nextLine();
+			
+			if( option.equals("1") ) {
+				String[] stringArray;
+				String fromKeyboard;
+				System.out.print("Please enter the message to cypher: ");
+				fromKeyboard = console.nextLine();
+				
+				stringArray = fromKeyboard.split("\\W+");
+				cypherText.addAll(Arrays.asList(stringArray)); // Try using a 'Parser' object
+				
+				System.out.println("Encrypting from standard input");
+				
+				startTime = System.currentTimeMillis();
+				for (String temp: parser.getFileContents()) {
+					cypherText.add(portaCipher.encode(temp));
+//					System.out.println(portaCipher.encode(temp));
+				}
+				
+				System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));
 			}
-			System.out.println("\n");
-		}
+			else if ( option.equals("2") ) {
+				if ( parser != null )
+					System.out.println("Encrypting '" + parser.getFile().getName() + "'");
+				else {
+					System.out.println("Please select a file or URL to parse first.");
+					return;
+				}
+					
+				startTime = System.currentTimeMillis();
+				for (String temp: parser.getFileContents()) {
+					cypherText.add(portaCipher.encode(temp));
+//					System.out.println(portaCipher.encode(temp));
+				}
+				
+				System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));
+				
+				printTitle("Output Cyphertext");
+				System.out.println("1. To screen");
+				System.out.println("2. To file");
+				option = console.nextLine();
+				
+				if ( option.equals("1") ) {
+					int letterCounter = 0;
+					
+					for(String temp: cypherText) {
+						letterCounter += temp.length() + 1; // '+ 1' because we are adding a space character
+						System.out.print(temp + " ");
+						if ( letterCounter > 80 ) { // New line after 80 characters
+							letterCounter = 0;
+							System.out.println();
+						}
+					}
+					System.out.println("\n");
+				}
+				else if ( option.equals("2") ) {
+					System.out.println("Please enter the output file:");
+					try {
+						BufferedWriter bw = new BufferedWriter( new FileWriter(console.nextLine() ) );
+						int letterCounter = 0;
+						
+						for(String temp: cypherText) {
+							letterCounter += temp.length() + 1; // '+ 1' because we are adding a space character
+							bw.write(temp + " ");
+							if ( letterCounter > 80 ) { // New line after 80 characters
+								letterCounter = 0;
+								bw.write("\n");
+							}
+						}
+					}
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				
+			}
+			else if ( option.equals("-1") ); // Just exit
+			else {
+				System.out.println("Please enter a valid option.");
+			}
+		} while ( !option.equals("-1") );
 		
 	} // encrypt()
 	
