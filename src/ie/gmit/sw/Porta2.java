@@ -9,7 +9,7 @@ public class Porta2 {
 //	Member attributes/fields
 	private Map<Character, Map<Character, Character> > tableau;
 //	private List< Map< Character, Character > > tableArray;
-	private final int NUMBER_ENCONDING_TABLES = 13;
+//	private static final int NUMBER_ENCONDING_TABLES = 13;
 //	I explicity declare 13 encoding tables because I need their explicit references.
 //	I use their references/names to fill up the 'tableau'
 //	private Map< Character, Character > encodeTable1 = new HashMap<>();
@@ -33,10 +33,12 @@ public class Porta2 {
 //	Constructors
 	public Porta2() {
 		key = "PORTA";
+		init();
 	}
 
 	public Porta2(String key) {
 		this.key = key; // check out if 'toUpperCase' uses loops, there is a chance to use a map...
+		init();
 	}
 
 	
@@ -63,24 +65,27 @@ public class Porta2 {
 	public void init() {
 		tableau = new HashMap<>();
 		
-		List< Map< Character, Character > > tableArray = new ArrayList<>();
+//		List< Map< Character, Character > > tableArray = new ArrayList<>();
 		Map< Character, Character> tempEncondigTable;
-		char keyChar;
-		char tempEncChar;
+//		char keyChar;
+//		char tempEncChar;
 		
-		for (int i = 0 ; i < NUMBER_ENCONDING_TABLES; i += 2) {
+		for (char keyChar = 'A'; keyChar < '['; keyChar += 2) {
 			tempEncondigTable = new HashMap<>();
 //			tempChar = (char) ('A' + i);
+//			keyChar = (char)('A' +  (i +2 ));
 			for (char character = 'A'; character < '['; character++) {
-				keyChar = (char)('A' + i);
-				tempEncChar = processChar(keyChar, character);
-				tempEncondigTable.put(character, tempEncChar);
-//				tempEncondigTable.put(character, processChar((char)('A' + i), character));
+//				tempEncChar = processChar(keyChar, character);
+//				tempEncondigTable.put(character, tempEncChar);
+				tempEncondigTable.put(character, processChar(keyChar, character));
 			}
 			
-			tableArray.add(tempEncondigTable);
+//			tableArray.add(tempEncondigTable);
 			
+			tableau.put(keyChar, tempEncondigTable); // Adding first key in key-pair 
+			tableau.put((char)(keyChar + 1), tempEncondigTable); // Adding second key in key-pair
 //			key = i 
+			
 		}
 
 	}
@@ -108,7 +113,7 @@ public class Porta2 {
 		
 		for (int i = 0; i < word.length(); i++) {
 //			'i % keyLength' avoids 'IndexOutOfBoundsException', no matter the length of the word to process
-			codedChar = processChar(key.charAt(i % keyLength),  word.toUpperCase().charAt(i));
+			codedChar = tableau.get(key.charAt(i % keyLength)).get(word.toUpperCase().charAt(i));
 			sb.append(codedChar);
 		}
 		

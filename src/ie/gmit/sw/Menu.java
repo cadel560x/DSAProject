@@ -9,6 +9,7 @@ public class Menu {
 //	Member attributes/fields	
 	private Scanner console;// = new Scanner(System.in);
 	private Porta portaCipher;// = new Porta();
+	private Porta2 portaCipher2;
 	private Parser parser;
 	private String option;
 	
@@ -19,6 +20,7 @@ public class Menu {
 	public Menu() {
 		console = new Scanner(System.in);
 		portaCipher = new Porta();
+		portaCipher2 = new Porta2();
 	}
 	
 	
@@ -119,6 +121,7 @@ public class Menu {
 	private void encrypt() {
 		// TODO Auto-generated method stu
 		List<String> cypherText = new ArrayList<>();
+		List<String> cypherText2 = new ArrayList<>();
 		long startTime;
 		
 		do {
@@ -147,6 +150,15 @@ public class Menu {
 				}
 				
 				System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));
+				
+				startTime = System.currentTimeMillis();
+				for (String temp: parser.getFileContents()) {
+					cypherText.add(portaCipher2.encode(temp));
+//					System.out.println(portaCipher.encode(temp));
+				}
+				
+				System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));				
+				
 			}
 			else if ( option.equals("2") ) {
 				if ( parser != null )
@@ -163,6 +175,14 @@ public class Menu {
 				}
 				
 				System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));
+				
+				startTime = System.currentTimeMillis();
+				for (String temp: parser.getFileContents()) {
+					cypherText2.add(portaCipher2.encode(temp));
+//					System.out.println(portaCipher.encode(temp));
+				}
+				
+				System.out.println("Running time (ms): " + (System.currentTimeMillis() - startTime + "\n"));	
 				
 				printTitle("Output Cyphertext");
 				System.out.println("1. To screen");
