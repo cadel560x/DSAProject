@@ -113,8 +113,10 @@ public class Porta2 {
 		
 		for (int i = 0; i < word.length(); i++) {
 //			'i % keyLength' avoids 'IndexOutOfBoundsException', no matter the length of the word to process
-			codedChar = tableau.get(key.charAt(i % keyLength)).get(word.toUpperCase().charAt(i));
-			sb.append(codedChar);
+			if( Character.isLetter(word.charAt(i))) {
+				codedChar = tableau.get(key.charAt(i % keyLength)).get(word.toUpperCase().charAt(i));
+				sb.append(codedChar);
+			}
 		}
 		
 		return sb.toString();
