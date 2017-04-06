@@ -6,6 +6,8 @@ public class Runner {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+//		Porta2 porta2 = new Porta2();
+//		porta2.init();
 		new Menu().start();
 //		
 //		
