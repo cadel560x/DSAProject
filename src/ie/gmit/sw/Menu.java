@@ -5,20 +5,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import ie.gmit.java2.parser.*;
+
 public class Menu {
 //	Member attributes/fields	
-	private Scanner console;// = new Scanner(System.in);
+	private static Scanner console = new Scanner(System.in);
 	private Porta portaCipher;// = new Porta();
 	private Porta2 portaCipher2;
 	private Parser parser;
-	private String option;
+//	private String option;
 	
 	
 	
 	
 //	Constructors
 	public Menu() {
-		console = new Scanner(System.in);
+//		console = new Scanner(System.in);
 		portaCipher = new Porta();
 		portaCipher2 = new Porta2();
 	}
@@ -27,95 +29,42 @@ public class Menu {
 	
 	
 //	Other methods
-	public void start() {
+	public static String printMainMenu() {
 		
-		do {
-			printTitle("Porta Cipher - Javier Mantilla G00329649");
-			System.out.println("1. Select source feed");
-			System.out.println("2. Set up encryption key");
-			System.out.println("3. Encrypt");
-			System.out.println("4. Decrypt");
-			System.out.print("Press -1 to exit: ");
+		printTitle("Porta Cipher - Javier Mantilla G00329649");
+		System.out.println("1. Select source feed");
+		System.out.println("2. Set up encryption key");
+		System.out.println("3. Encrypt");
+		System.out.println("4. Decrypt");
+		System.out.print("Press -1 to exit: ");
+		
+		System.out.println();
+	
+//		option = console.nextLine();
+//		console.close();
+		
+//		return option;
+		return console.nextLine();
+		
+	} // printMainMenu
+	
+	
+	public static String printInputSource() {
 
-			option = console.nextLine();
-			
-			System.out.println();
-			
-			switch(option) {
-				case "1":
-					selectSource();
-//					'selectSource' displays a submenu which sets 'option' as '-1' to finish,
-//					but here, in the parent menu we don't want to exit yet. So 'option' is reset
-					option = "";
-					break;
-				case "2":
-					printTitle("Key setup");
-					System.out.print("Enter key: ");
-					portaCipher.setKey(console.nextLine().toUpperCase());
-					System.out.println(); // Just some nice formatting
-					break;
-				case "3":
-					printTitle("Encrypt");
-					encrypt();
-					break;
-				case "4":
-					printTitle("Decrypt");
-					break;
-				case "-1":
-					break; // Just exit
-				default:
-					System.out.println("Invalid option. Please try again.\n");
-			}
-		} while( !option.equals("-1"));
-		
-		System.out.println("Thank you for using my Porta cypher. Have a nice day.\nJavier Mantilla G00329649");
-		
-		console.close();
-	} // start()
-	
-	
-	private void selectSource() {
-//		String source;
-		
-		do {
 			printTitle("Source feed");
 			System.out.println("Please choose a source feed: ");
 			System.out.println("1. File");
 			System.out.println("2. URL");
 			System.out.print("Press -1 to go back: ");
-			
-			option = console.nextLine();
-			
 			System.out.println();
 			
-			switch(option) {
-			case "1":
-				System.out.print("Please type the pathname: ");
-//				source = console.nextLine();
-				parser = new Parser(console.nextLine());
-//				parser = new Parser(source);
-				System.out.println("File '" + parser.getFile().getName() + "' parsed and loaded into memory\n");
-//				Nothing else to do here. Go to parent menu.
-				option = "-1";
-				break;
-			case "2":
-				System.out.println("Please type the URL: ");
-				//source = console.nextLine();
-				parser = new Parser(console.nextLine());	
-//				Nothing else to do here. Go to parent menu.				
-				option = "-1";
-				break;
-			case "-1":
-				break; // Just exit
-			default:
-				System.out.println("Invalid option. Please try again.\n");
-			}
-		} while ( !option.equals("-1"));
-		
-//		Empty the "-1" so it doesn't make us exit from the top menu too.
-//		option = "";
-		
-	} // selectSource()
+//			option = console.nextLine();
+//			console.close();
+			
+//			return option;
+			return console.nextLine();
+			
+	} // printInputSource
 	
 	
 	private void encrypt() {
@@ -232,7 +181,7 @@ public class Menu {
 	} // encrypt()
 	
 	
-	private void printTitle(String title) {
+	public static void printTitle(String title) {
 		StringBuilder sb = new StringBuilder();
 		
 		System.out.println(title);

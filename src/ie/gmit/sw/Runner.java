@@ -2,13 +2,51 @@ package ie.gmit.sw;
 
 import java.util.*;
 
-public class Runner {
+import ie.gmit.java2.parser.*;
 
+public class Runner {
+//	Member attributes/fields
+	private static Menu menu = new Menu();
+	private static String option;
+	
+	
+	
+//	'main' entry point
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 //		Porta2 porta2 = new Porta2();
 //		porta2.init();
-		new Menu().start();
+//		Scanner console = new Scanner(System.in);
+		do {
+			option = Menu.printMainMenu();
+			
+			switch(option) {
+				case "1":
+					selectSource();
+//					'selectSource' displays a submenu which sets 'option' as '-1' to finish,
+//					but here, in the parent menu we don't want to exit yet. So 'option' is reset
+					option = "";
+					break;
+				case "2":
+					Menu.printTitle("Key setup");
+					System.out.print("Enter key: ");
+					portaCipher.setKey(console.nextLine().toUpperCase());
+					System.out.println(); // Just some nice formatting
+					break;
+				case "3":
+					Menu.printTitle("Encrypt");
+					encrypt();
+					break;
+				case "4":
+					Menu.printTitle("Decrypt");
+					break;
+				case "-1":
+					break; // Just exit
+				default:
+					System.out.println("Invalid option. Please try again.\n");
+			}
+		} while( !option.equals("-1"));
+		
+		System.out.println("Thank you for using my Porta cypher. Have a nice day.\nJavier Mantilla G00329649");
 //		
 //		
 //		String plainWord = "HOLA";
@@ -171,5 +209,41 @@ public class Runner {
 //		System.out.println(tableau.get(b).get('a'));
 	} // main
 	
-
+	
+	private static void selectSource() {
+//		String source;
+		
+		do {
+//			option = Menu.printInputSource();
+			
+			
+			switch(Menu.printInputSource()) {
+			case "1":
+				System.out.print("Please type the pathname: ");
+//				source = console.nextLine();
+				parser = new Parser(console.nextLine());
+//				parser = new Parser(source);
+				System.out.println("File '" + parser.getFile().getName() + "' parsed and loaded into memory\n");
+//				Nothing else to do here. Go to parent menu.
+				option = "-1";
+				break;
+			case "2":
+				System.out.println("Please type the URL: ");
+				//source = console.nextLine();
+				parser = new Parser(console.nextLine());	
+//				Nothing else to do here. Go to parent menu.				
+				option = "-1";
+				break;
+			case "-1":
+				break; // Just exit
+			default:
+				System.out.println("Invalid option. Please try again.\n");
+			}
+		} while ( !option.equals("-1"));
+		
+//		Empty the "-1" so it doesn't make us exit from the top menu too.
+//		option = "";
+		
+	} // selectSource()
+	
 } // Runner
