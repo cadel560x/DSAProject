@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Parser {
+public class Parser2 {
 //	Member attributes/fields
 	List<String> fileContents;// = new ArrayList<String>();
 	private File file;
@@ -18,12 +18,12 @@ public class Parser {
 	
 	
 //	Constructors	
-	public Parser() {
+	public Parser2() {
 		fileContents = new ArrayList<String>();
 		file = null;
 	}
 	
-	public Parser(String pathname) {
+	public Parser2(String pathname) {
 		fileContents = new ArrayList<String>();
 		this.file = new File(pathname);
 		this.parse(file);		

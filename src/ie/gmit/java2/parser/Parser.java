@@ -11,7 +11,7 @@ import java.util.List;
  and implementation of the requested methods.
  */
 public abstract class Parser {
-//	 Fields
+//	Member attributes/fields
 /*
 	 (BufferedReader) 'br' is set to 'protected' access mode since it is mutated from the children classes 'FileParser' and 'URLParser' and not from anywhere else
 	 (List<String>) 'contents' is the list where all sourced words will be stored for parsing
@@ -19,38 +19,65 @@ public abstract class Parser {
 	protected BufferedReader br;
 	private List<String> contents = new ArrayList<String>();
 	
-//	Getter
+	
+	
+	
+//	Getters & setters
 	public List<String> getContents() {
 		return contents;
 	}
+	
+	
+	public BufferedReader getBr() {
+		return br;
+	}
+
+
+	public void setBr(BufferedReader br) {
+		this.br = br;
+	}
+
+
+//	public void setBr(InputStreamReader is ) {
+//		br = new BufferedReader(is);
+//	}	
+
+	
+	
 
 //	Requested methods are implemented here as they performed the same manipulations on the instance variable (ArrayList<String>) 'contents' and (BufferedReader) 'br' 
 	public int count() {
 		return contents.size();
 	}
 
+	
 	public boolean contains(String s) {
 		return contents.contains(s);
 	}
 
+	
 	public int getFirstIndex(String s) {
 		return contents.indexOf(s);
 	}
 
+	
 	public int getLastIndex(String s) {
 		return contents.lastIndexOf(s);
 	}
 
+	
 	public void delete(String s) {
 		while (contains(s))
 			delete(getFirstIndex(s));
 
 	}
 
+	
 	public void delete(int index) {
 		contents.remove(index);
 	}
 
+	
 	public int countOcurrences(String s) {
 		int counter;
 		
@@ -61,6 +88,7 @@ public abstract class Parser {
 		
 		return counter;
 	}
+	
 	
 	public int[] getAllIndeces(String s) {
 	    ArrayList<Integer> indexList = new ArrayList<Integer>();
@@ -82,15 +110,20 @@ public abstract class Parser {
 	    return indexes;
 	}
 	
+	
+	
+	
 //	Other methods
 	public String get(int index) {
 		return contents.get(index);
 	}
 	
+	
 	public void show() {
 		System.out.println(contents);
 	}
 
+	
 	public float averageWordSize() {
 		float sum = 0;
 		float average;
@@ -99,8 +132,11 @@ public abstract class Parser {
 			sum = sum + word.length();
 		
 		average = sum / count();
+		
 		return average;
+		
 	}
+	
 	
 	public String mostCommonWord() {
 		String mostCommon = new String();
@@ -114,13 +150,19 @@ public abstract class Parser {
 				max = occurrences;
 			}
 		}
+		
 		return mostCommon;
+		
 	}
 	
-	public void exceptionHandler(Exception e) {
+	
+	private void exceptionHandler(Exception e) {
+		
 		System.err.println("\nPlease send an email to G00329649@gmit.ie with the following information: ");
 		e.printStackTrace();
-	}
+		
+	} // exceptionHandler	
+	
 	
 	public void parse(BufferedReader br)
 	{
@@ -128,7 +170,7 @@ public abstract class Parser {
 		 String [] str = null;
 		 
 		 try {
-				while((s = br.readLine()) != null )
+				while( (s = br.readLine() ) != null )
 				 {
 /*					 
  					 Regex '\W+' is more accurate for parsing than '\s+'
@@ -147,6 +189,13 @@ public abstract class Parser {
 		}
 //		For some unclear reason some "" characters get in, let's delete them
 		delete("");
-	}
-
-}
+		
+	} // parse(BufferedReader br)
+	
+	
+	public void parse() {
+		parse(this.br);
+	} // parse()
+	
+	
+} // class Parser

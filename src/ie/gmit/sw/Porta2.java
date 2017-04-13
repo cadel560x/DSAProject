@@ -37,7 +37,7 @@ public class Porta2 {
 	}
 
 	public Porta2(String key) {
-		this.key = key; // check out if 'toUpperCase' uses loops, there is a chance to use a map...
+		this.key = key.toUpperCase(); // check out if 'toUpperCase' uses loops, there is a chance to use a map...
 		init();
 	}
 
@@ -47,15 +47,10 @@ public class Porta2 {
 //	Getters & setters
 	public String getKey() {
 		return key;
-	} // to delete, not a good idea to get the key ;-)
+	}
 
 	public void setKey(String key) {
-//		Watch out for those pranksters that change the key to a invalid value
-		if (key == null || key.equals("")) {
-			System.out.println("The key can't be 'null' or empty!\nUsing 'PORTA' as key");
-			this.key = "PORTA";
-		} else
-			this.key = key;
+		this.key = key;
 	}
 
 
@@ -113,7 +108,7 @@ public class Porta2 {
 		
 		for (int i = 0; i < word.length(); i++) {
 //			'i % keyLength' avoids 'IndexOutOfBoundsException', no matter the length of the word to process
-			if( Character.isLetter(word.charAt(i))) {
+			if( Character.isLetter( word.charAt(i) ) ) {
 				codedChar = tableau.get(key.charAt(i % keyLength)).get(word.toUpperCase().charAt(i));
 				sb.append(codedChar);
 			}
@@ -126,7 +121,7 @@ public class Porta2 {
 	
 	public String decode(String cypherText) {
 		return encode(cypherText);
-		
 	} // decode
 	
-}
+	
+} // Class Porta2

@@ -1,27 +1,40 @@
 package ie.gmit.sw;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import ie.gmit.java2.parser.*;
 
-public class Menu {
+public class Menu2 {
 //	Member attributes/fields	
 	private static Scanner console = new Scanner(System.in);
-	private Porta portaCipher;// = new Porta();
-	private Porta2 portaCipher2;
-	private Parser parser;
+	private List<String> menuItemLabels = new ArrayList<String>();
+	private String title;
+	protected String optionSelected;
+	
+//	private Porta portaCipher;// = new Porta();
+//	private Porta2 portaCipher2;
+//	private Parser parser;
 //	private String option;
 	
 	
 	
 	
 //	Constructors
-	public Menu() {
+	public Menu2() {
 //		console = new Scanner(System.in);
-		portaCipher = new Porta();
+//		portaCipher = new Porta();
 		portaCipher2 = new Porta2();
 	}
 	
@@ -51,20 +64,72 @@ public class Menu {
 	
 	public static String printInputSource() {
 
-			printTitle("Source feed");
-			System.out.println("Please choose a source feed: ");
-			System.out.println("1. File");
-			System.out.println("2. URL");
-			System.out.print("Press -1 to go back: ");
-			System.out.println();
-			
+		printTitle("Source feed");
+		System.out.println("Please choose a source feed: ");
+		System.out.println("1. File");
+		System.out.println("2. URL");
+		System.out.print("Press -1 to go back: ");
+		System.out.println();
+		
 //			option = console.nextLine();
 //			console.close();
-			
+		
 //			return option;
-			return console.nextLine();
+		return console.nextLine();
 			
 	} // printInputSource
+	
+	
+	public static void printFileSetup(ie.gmit.java2.parser.FileParser fileParser) { // Clean this
+
+		try {
+			System.out.print("Please type the pathname: ");
+			fileParser.setFile( new File(console.nextLine()) );
+			fileParser.setBr( new BufferedReader ( new InputStreamReader( new FileInputStream( fileParser.getFile() ) ) ) );
+			System.out.println("File '" + fileParser.getFile().getName() + "' parsed and loaded into memory\n");
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("There was a problem reading from the specified file\nPlease try again or use a different file.");
+		}
+		
+	} // printURLSetup
+	
+	
+	public static void printUrlSetup(ie.gmit.java2.parser.UrlParser urlParser) { // Clean this
+		
+		try {
+			System.out.print("Please type an URL: ");
+//			webSite = webSite.toLowerCase();
+			
+			urlParser.setSite( new URL( console.nextLine().toLowerCase() ) );
+			
+			if ( urlParser.getSite().toString().startsWith("https://") ) {
+				urlParser.setSecSite( (HttpsURLConnection) urlParser.getSite().openConnection() );
+				urlParser.setIs( urlParser.getSecSite().getInputStream() );
+			}
+			else
+				urlParser.setIs( urlParser.getSite().openStream() );
+			
+			urlParser.setBr( new BufferedReader( new InputStreamReader( urlParser.getIs() ) ) );
+			
+			System.out.println("URL '" + urlParser.getSite().toString() + "' parsed and loaded into memory\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	} // printUrlSetup
+	
+	
+	public static void printKeySetup(Porta2 portaCipher) {
+		
+		printTitle("Key Setup");
+		System.out.print("Enter key: ");
+		portaCipher.setKey(console.nextLine());
+		
+		System.out.println();
+		
+	} // keySetup
 	
 	
 	private void encrypt() {
