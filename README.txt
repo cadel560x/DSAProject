@@ -48,11 +48,13 @@ Please choose a source feed:
 3. Standard input (keyboard)
 Press -1 to go back: 
 
-
 Features:
+-This application computes the amount of time consumed in each cipher/decipher operations
 -Porta class has an internal array list where it stores the processed input.
--Porta class can encrypt/decrypt from the 'stdin' or directly from the keyboard.
--Porta class has a method to output to the 'stdout' in a format of 80 characters wide lines.
+-Porta class has a method to output the result text to the 'stdout' in a format of 80 characters wide lines.
+-This application can encrypt/decrypt from the 'stdin' or directly from the keyboard.
+-This application can parse URLs, if no protocol is specified, http is assumed
+ i.e. www.google.com is entered, it is interpreted as http://www.google.com
 -This application uses 'Parser' class and 'Menu' class from the previous semester that are in packages 'ie.gmit.java2.parser' and
 'ie.gmit.java2.menu' respectively.
 -This application gives the option to display the processed text to the 'stdout' or screen.

@@ -142,9 +142,10 @@ public class Porta {
 				codedChar = tableau.get( key.charAt( i % key.length() ) ).get( word.charAt(i) );
 				sb.append(codedChar);
 			}
-			
-//			Don't process numbers but add them into the end result
-			sb.append( word.charAt(i) );
+			else {
+//				Don't process numbers but add them into the end result
+				sb.append( word.charAt(i) );
+			}
 		}
 		
 //		Store processed strings
@@ -174,7 +175,6 @@ public class Porta {
 	} // encode(ArrayList<String> rawContents) - Complexity O(n^2): There is an implicit loop nesting. The outer loop is
 //	traverses the list of strings from one string to the next string. The second loop is found when 'enconde(String word)'
 //	that traverses each letter of every string in the passed list 'rawContents'
-	
 	
 	
 	public void decode(List<String> rawContents) {
