@@ -17,8 +17,6 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 	private MainMenu mainMenu;
 	private InputFeedMenu inputFeedMenu;
 	private KeySetupMenu keySetupMenu;
-	private EncryptionMenu encryptionMenu;
-	private DecryptionMenu decryptionMenu;
 	
 	
 	
@@ -30,8 +28,6 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 		portaCipher = new Porta();
 		inputFeedMenu = new InputFeedMenu();
 		keySetupMenu = new KeySetupMenu();
-		encryptionMenu = new EncryptionMenu();
-		decryptionMenu = new DecryptionMenu();
 		
 	}
 
@@ -46,16 +42,16 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 			mainMenu.print();
 			
 			switch( mainMenu.getOption() ) {
+//				case "1":
+//					selectSource();
+//					break;
 				case "1":
-					selectSource();
-					break;
-				case "2":
 					keySetup();
 					break;
-				case "3":
+				case "2":
 					encrypt();
 					break;
-				case "4":
+				case "3":
 					decrypt();
 					break;
 				case "-1":
@@ -73,7 +69,7 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 	
 	
 //	Other methods	
-	private void selectSource() {
+	private boolean selectSource() {
 		
 		do {
 			inputFeedMenu.print();
@@ -81,17 +77,15 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 			switch( inputFeedMenu.getOption() ) {
 			case "1":
 				loadFileParser();
-				
-//				Nothing else to do here. Go to parent menu.
-				inputFeedMenu.setOption("-1");
-				break;
+				return true;
 				
 			case "2":
 				loadUrlParser();
+				return true;
 				
-//				Nothing else to do here. Go to parent menu.				
-				inputFeedMenu.setOption("-1");
-				break;
+			case "3":
+				encryptStdin();
+				return false;
 				
 			case "-1":
 				break; // Just exit
@@ -102,6 +96,8 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 			}
 			
 		} while ( ! inputFeedMenu.getOption().equals("-1") );
+		
+		return false;
 		
 	} // selectSource
 	
@@ -123,7 +119,6 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 			Menu.exceptionHandler(e);
 			
 		}
-		
 		
 		if ( inputFeedMenu.showFeed() ) {
 			parser.showStdOut();
@@ -185,26 +180,10 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 	
 	private void encrypt() {
 		
-		do
-		{
-			encryptionMenu.print();
-			
-			switch( encryptionMenu.getOption() ) {
-			case "1":
-				encryptStdin();
-				
-//				Nothing else to do here. Go to parent menu.				
-				encryptionMenu.setOption("-1");				
-				break;
-				
-			case "2":
-				encryptParser();				
-				
-//				Nothing else to do here. Go to parent menu.				
-				encryptionMenu.setOption("-1");				
-				break;
-			}
-		} while ( ! encryptionMenu.getOption().equals("-1") );
+		if ( selectSource() ) {
+			System.out.println("Encrypting...");
+			encryptParser();
+		}
 		
 	} // encrypt
 	
@@ -219,8 +198,8 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 		stdinParser.toUpper();
 		
 		startTime = System.nanoTime();
-		for ( String plainTextWord: stdinParser.getContents() )
-			 portaCipher.encode(plainTextWord);
+		
+		portaCipher.encode( stdinParser.getContents() );
 		
 		System.out.println( "Running time (ns): " + (System.nanoTime() - startTime ) + " nanoseconds." );
 		
@@ -241,12 +220,12 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 			
 			System.out.println( "Running time (ms): " + (System.currentTimeMillis() - startTime ) + " milliseconds.\n" );
 			
-			if ( encryptionMenu.showEncryptedParser() ) {
+			if ( inputFeedMenu.showProcessedParser() ) {
 				portaCipher.showProcessedText();
 				System.out.println();
 			}
 			
-			if ( encryptionMenu.saveToFile() ) {
+			if ( inputFeedMenu.saveToFile() ) {
 				outputToFile();
 			}
 		}
@@ -292,26 +271,12 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 	
 	private void decrypt() {
 		
-		do
-		{
-			decryptionMenu.print();
-			
-			switch( decryptionMenu.getOption() ) {
-			case "1":
-				encryptStdin();
-				
-//				Nothing else to do here. Go to parent menu.				
-				decryptionMenu.setOption("-1");				
-				break;
-				
-			case "2":
-				encryptParser();				
-				
-//				Nothing else to do here. Go to parent menu.				
-				decryptionMenu.setOption("-1");				
-				break;
-			}
-		} while ( ! decryptionMenu.getOption().equals("-1") );
+		if ( selectSource() ) {
+			System.out.println("Decrypting...");
+//			Decrypting is running encryption over the encrypted text, so that is why 'encryptParser()'
+//			is called here
+			encryptParser();
+		}
 		
 	} // decrypt
 	

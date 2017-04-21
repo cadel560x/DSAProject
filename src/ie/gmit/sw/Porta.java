@@ -10,6 +10,7 @@ public class Porta {
 	private Map<Character, Map<Character, Character> > tableau;
 	private List<String> processedText;
 	private String key;
+//	private int keyLetterIndexAccumulator;
 	
 	
 	
@@ -39,6 +40,16 @@ public class Porta {
 	}
 	
 	
+//	public int getKeyLetterIndexAccumulator() {
+//		return keyLetterIndexAccumulator;
+//	}
+//
+//
+//	public void setKeyLetterIndexAccumulator(int keyLetterIndexAccumulator) {
+//		this.keyLetterIndexAccumulator = keyLetterIndexAccumulator;
+//	}
+
+
 	public Map<Character, Map<Character, Character>> getTableau() {
 		return tableau;
 	}
@@ -100,19 +111,22 @@ public class Porta {
 	
 	public void encode(String word) {
 		StringBuilder sb = new StringBuilder();
+//		int keyLetterIndex = getKeyLetterIndexAccumulator();
 		char codedChar;
-		int keyLength = key.length();
 		
 		for (int i = 0; i < word.length(); i++) {
 			if( Character.isLetter( word.charAt(i) ) ) {
-//				'tableau.get( key.charAt(i % keyLength) )' gets the respective map according to the letter of the key.
+//				'tableau.get( key.charAt( i % key.length() ) )' gets the respective map according to the letter of the key.
 //				'i % keyLength' avoids 'IndexOutOfBoundsException', no matter how big is 'i' - 'i' represents the length of the word to process	 -
 				
 //				'.get( word.charAt(i) )' gets the corresponding letter for the letter of the word being processed
-				codedChar = tableau.get( key.charAt(i % keyLength) ).get( word.charAt(i) );
+//				codedChar = tableau.get( key.charAt( ( keyLetterIndex + i ) % key.length() ) ).get( word.charAt(i) );
+				codedChar = tableau.get( key.charAt( i % key.length() ) ).get( word.charAt(i) );
 				sb.append(codedChar);
 			}
 		}
+		
+//		setKeyLetterIndexAccumulator( keyLetterIndex + word.length() );
 		
 //		Store processed strings
 		processedText.add( sb.toString() );
@@ -129,10 +143,12 @@ public class Porta {
 		
 //		 Purge the 'processedText' array list from previous process
 		 if ( ! processedText.isEmpty() )
-			 processedText.clear();		
-		
+			 processedText.clear();
+		 
+//		 setKeyLetterIndexAccumulator(0);
+		 
 		 for(String plainTextWord: rawContents) {
-			 encode(plainTextWord);
+			 encode( plainTextWord);
 		 }
 		
 	} // encode(ArrayList<String> rawContents)

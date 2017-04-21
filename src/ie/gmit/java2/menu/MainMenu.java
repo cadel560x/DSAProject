@@ -9,10 +9,10 @@ public class MainMenu extends Menu {
 		setTitle("Porta Cipher - Javier Mantilla G00329649");
 		
 		menuItemLabels = new ArrayList<>();
-		menuItemLabels.add("1. Select source feed");
-		menuItemLabels.add("2. Set up encryption key");
-		menuItemLabels.add("3. Encrypt");
-		menuItemLabels.add("4. Decrypt");
+//		menuItemLabels.add("1. Select source feed");
+		menuItemLabels.add("1. Set up encryption key");
+		menuItemLabels.add("2. Encrypt");
+		menuItemLabels.add("3. Decrypt");
 		menuItemLabels.add("Press -1 to exit: ");
 		
 	}

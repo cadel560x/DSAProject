@@ -12,6 +12,7 @@ public class InputFeedMenu extends Menu {
 		menuItemLabels.add("Please choose a source feed:  ");
 		menuItemLabels.add("1. File");
 		menuItemLabels.add("2. URL");
+		menuItemLabels.add("3. Standard input (keyboard)");
 		menuItemLabels.add("Press -1 to go back: ");
 		
 	}
@@ -41,5 +42,47 @@ public class InputFeedMenu extends Menu {
 		
 	} // showFeed
 
+	
+	public boolean showProcessedParser() {
+		
+		do {
+			System.out.print("Display processed contents (y/n)? ");
+			setOption( console.nextLine() );
+			
+			switch( getOption() ) {
+			case "y":
+			case "Y":
+				return true;
+			case "n":
+			case "N":
+				return false;
+			default:
+					System.out.println("Please enter 'y' or 'n'");
+			}
+		} while ( true) ;
+		
+	} // showProcessedParser
+	
+	
+	public boolean saveToFile() {
+		
+		do {
+			System.out.print("Save processed contents to a file (y/n)? ");
+			setOption( console.nextLine() );
+			
+			switch( getOption() ) {
+			case "y":
+			case "Y":
+				return true;
+			case "n":
+			case "N":
+				return false;
+			default:
+					System.out.println("Please enter 'y' or 'n'");
+			}
+		} while ( true) ;
+		
+	} // saveToFile	
+	
 	
 } // class InputFeedMenu
