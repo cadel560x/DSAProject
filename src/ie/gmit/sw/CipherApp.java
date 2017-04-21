@@ -61,7 +61,7 @@ public class CipherApp implements Runnable { // Use of interfaces. Method 'run()
 			}
 		} while( ! mainMenu.getOption().equals("-1") );
 		
-		System.out.println("Thank you for using my Porta cypher. Have a nice day.\nJavier Mantilla G00329649");
+		System.out.println("Thank you for using my Porta cypher. Have a nice day.\nJavier Mantilla G00329649\n");
 		
 	} // run
 	
