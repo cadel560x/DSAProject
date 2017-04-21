@@ -2,15 +2,15 @@ package ie.gmit.java2.menu;
 
 import java.util.ArrayList;
 
-public class EncryptionMenu extends Menu {
+public class DecryptionMenu extends Menu {
 //	Constructors
-	public EncryptionMenu() {
+	public DecryptionMenu() {
 		
-		setTitle("Encryption");
+		setTitle("Decryption");
 		
 		menuItemLabels = new ArrayList<>();
-		menuItemLabels.add("1. Encrypt from keyboard");
-		menuItemLabels.add("2. Encrypt a parser that is already loaded in memory");
+		menuItemLabels.add("1. Decrypt from keyboard");
+		menuItemLabels.add("2. Decrypt a parser that is already loaded in memory");
 		menuItemLabels.add("Press -1 to go back: ");
 		
 	}
@@ -19,7 +19,7 @@ public class EncryptionMenu extends Menu {
 	
 	
 //	 Other methods
-	public boolean showEncryptedParser() {
+	public boolean showDecryptedParser() {
 		
 		do {
 			System.out.print("Display processed contents (y/n)? ");
@@ -37,7 +37,7 @@ public class EncryptionMenu extends Menu {
 			}
 		} while ( true) ;
 		
-	} // showEncryptedParser
+	} // showDecryptedParser
 	
 
 	public boolean saveToFile() {
@@ -61,4 +61,4 @@ public class EncryptionMenu extends Menu {
 	} // saveToFile
 	
 	
-} // class EncryptionMenu
+} // class DecryptionMenu

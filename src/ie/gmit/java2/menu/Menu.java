@@ -25,14 +25,6 @@ public abstract class Menu {
 	
 	
 	
-//	Constructors
-//	public Menu() {
-//		
-//	}
-	
-	
-	
-	
 //	Getters & setters
 	public String getTitle() {
 		return title;
@@ -81,12 +73,8 @@ public abstract class Menu {
 		
 		printTitle();
 		for (String menuItem: menuItemLabels) {
-//			I don't like a new line after a ':', so I use 'System.out.print()'
-			if ( menuItem.equals("Press -1 to exit: ") )
-				System.out.print(menuItem);
-			else if ( menuItem.equals("Press -1 to go back: ") )
-				System.out.print(menuItem);			
-			else if ( menuItem.equals("Enter key: ") )
+//			I don't like a new line after a ': ', so I use 'System.out.print()'
+			if ( menuItem.endsWith(": ")  )
 				System.out.print(menuItem);
 			else
 //				Now it can have a new line!

@@ -26,8 +26,7 @@ public class FileParser extends Parser {
 		this.file = new File(fileName);
 //		'(BufferedReader) br' is inherited from the parent abstract class 'Parser' with 'protected' access mode
 		br = new BufferedReader( new InputStreamReader( new FileInputStream(file) ) );
-		parse(br);
-			
+		
 	}
 
 	

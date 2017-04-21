@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-//import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -16,7 +15,6 @@ public class UrlParser extends Parser {
 	private URL site;
 	private HttpsURLConnection secSite;
 	private InputStream is;
-//	private MalformedURLException mue;
 	
 	
 	
@@ -44,7 +42,6 @@ public class UrlParser extends Parser {
 		
 //		'(BufferedReader) br' is inherited from the parent abstract class 'Parser' with 'protected' access mode
 		br = new BufferedReader( new InputStreamReader(is) );
-		parse(br);
 
 	}
 	

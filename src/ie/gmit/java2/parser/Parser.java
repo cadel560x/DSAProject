@@ -36,15 +36,10 @@ public abstract class Parser {
 	public void setBr(BufferedReader br) {
 		this.br = br;
 	}
-
-
-//	public void setBr(InputStreamReader is ) {
-//		br = new BufferedReader(is);
-//	}	
-
 	
 	
-
+	
+	
 //	Requested methods are implemented here as they performed the same manipulations on the instance variable (ArrayList<String>) 'contents' and (BufferedReader) 'br' 
 	public int count() {
 		return contents.size();
@@ -87,7 +82,8 @@ public abstract class Parser {
 				counter++;
 		
 		return counter;
-	}
+		
+	} // countOcurrences
 	
 	
 	public int[] getAllIndeces(String s) {
@@ -108,7 +104,8 @@ public abstract class Parser {
 	    	indexes[++i] = n;
 	    
 	    return indexes;
-	}
+	    
+	} // getAllIndeces
 	
 	
 	
@@ -124,6 +121,23 @@ public abstract class Parser {
 	}
 
 	
+	public void showStdOut() {
+		
+		int characterCounter = 0;
+		
+		for(String processedWord: contents ) {
+			characterCounter += processedWord.length() + 1; // '+ 1' because we are adding a space character
+			System.out.print(processedWord + " ");
+			if ( characterCounter > 80 ) { // New line after 80 characters
+				characterCounter = 0;
+				System.out.println();
+			}
+		}		
+		
+		System.out.println();
+	}
+	
+	
 	public float averageWordSize() {
 		float sum = 0;
 		float average;
@@ -135,7 +149,7 @@ public abstract class Parser {
 		
 		return average;
 		
-	}
+	} // averageWordSize
 	
 	
 	public String mostCommonWord() {
@@ -153,21 +167,34 @@ public abstract class Parser {
 		
 		return mostCommon;
 		
-	}
+	} // mostCommonWord
 	
 	
-	private void exceptionHandler(Exception e) {
+	public void toUpper() {
+		contents.replaceAll(String::toUpperCase);		
+	} // toUpper
+	
+	
+	public void toLower() {
+		contents.replaceAll(String::toLowerCase);	
+	} // toLower
+	
+	
+	protected void exceptionHandler(Exception e) {
 		
 		System.err.println("\nPlease send an email to G00329649@gmit.ie with the following information: ");
 		e.printStackTrace();
 		
-	} // exceptionHandler	
+	} // exceptionHandler
 	
 	
-	public void parse(BufferedReader br)
-	{
+	public void parse(BufferedReader br) {
 		 String s = null; 
 		 String [] str = null;
+		 
+//		 Purge the 'contents' array list from previous parsers
+		 if ( ! contents.isEmpty() )
+			 contents.clear();
 		 
 		 try {
 				while( (s = br.readLine() ) != null )
@@ -181,9 +208,11 @@ public abstract class Parser {
 					 with tags < > or with quotation marks "" within HTML attributes.
 */
 						str = s.split("\\W+");
-//						 Add to the list that keeps all the sourced words
+//						Add to the list that keeps all the sourced words
 						contents.addAll(Arrays.asList(str));	
 				 }
+				
+				br.close();
 		} catch (IOException e) {
 			exceptionHandler(e);
 		}
